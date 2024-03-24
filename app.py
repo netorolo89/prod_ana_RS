@@ -3,7 +3,7 @@ import pandas as pd
 import plotly_express as px
 import calendar
 prod = pd.read_csv(
-    r'prod_ana_RS\notebooks\Prod_Asig_Worked.csv')
+    'prod_ana_RS\notebooks\Prod_Asig_Worked.csv')
 st.title('Seguimiento a la Producción')
 st.header('Comportamiento de la producción de Hidrocarburos (2016-2024)')
 st.subheader('En esta aplicación se puede visualizar el comportamiento de la producción de aceite, gas, y agua de las asignaciones pertenecientes a las cuencas del sureste.')
