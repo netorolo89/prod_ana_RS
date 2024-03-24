@@ -6,13 +6,13 @@ prod = pd.read_csv(
     r'C:\Users\rodri\OneDrive\Desktop\TripleTen\Sprint5\Proyecto\prod_ana_RS\notebooks\Prod_Asig_Worked.csv')
 st.title('Seguimiento a la Producción')
 st.header('Comportamiento de la producción de Hidrocarburos (2016-2024)')
-st.subheader('En esta aplicación se puede visualizar el comportamiento de la producción de aceite, gas, y agua de las asignaciones pertenecientes a las cuencas del sureste')
+st.subheader('En esta aplicación se puede visualizar el comportamiento de la producción de aceite, gas, y agua de las asignaciones pertenecientes a las cuencas del sureste.')
 st.divider()
-st.subheader('Indicaciones')
-st.markdown("1. Seleccionar la asignación a revisar")
+st.subheader('Indicaciones:')
+st.markdown("1. Seleccionar la asignación a revisar, puede comenzar a escribir en la selección de asignación para facilitar la búsqueda.")
 st.markdown(
-    "2. Puede incluir la revisión a un pozo, seleccionando la casilla Revisar Pozo")
-st.markdown("3. Dar click en el botón Revisar")
+    "2. Puede incluir la revisión a un pozo, seleccionando la casilla Revisar Pozo.")
+st.markdown("3. Dar click en el botón Revisar.")
 st.divider()
 asig = st.selectbox('Seleccionar asignación',
                     prod['Asignación_o_Contrato'].unique())
@@ -56,8 +56,10 @@ if anal:
     st.markdown("Producción de agua por pozo (%)")
     asig_df['Fecha'] = pd.to_datetime(asig_df['Fecha'], format='%Y-%m-%d')
     Fw_p = px.scatter(asig_df, x='Fecha', y='Fw (%)', color='Nombre_del_pozo',
-                      color_discrete_sequence=px.colors.sequential.Emrld)
+                      color_discrete_sequence=px.colors.sequential.Emrld, labels={'Nombre_del_pozo': 'Pozos'})
     Fw_p
+    st.markdown(
+        'Dando click en los nombres de los pozos (lado derecho) se pueden quitar o agregar al gráfico.')
     st.divider()
     if anal_p:
         st.subheader('Revisión de producción por pozo')
@@ -65,7 +67,7 @@ if anal:
         pozo_df = asig_df[asig_df['Nombre_del_pozo'] == pozo]
         st.markdown("Comportamiento de producción de hidrocarburos")
         compp = px.line(pozo_df, x='Fecha', y=[
-                        'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'], color_discrete_map={'Petróleo_(Mbd)': '#014135', 'Gas_asociado_(MMpcd)': '#BC8F8F'})
+                        'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'], color_discrete_map={'Petróleo_(Mbd)': '#014135', 'Gas_asociado_(MMpcd)': '#BC8F8F'}, labels={'value': 'Promedio diario mensual', 'variable': 'Hidrocarburo'})
         compp
         st.markdown("Comportamiento de producción de agua")
         pozo_df['Fecha'] = pd.to_datetime(pozo_df['Fecha'], format='%Y-%m-%d')
