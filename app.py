@@ -31,3 +31,13 @@ if anal:
         "Cantidad de pozos que han alcanzado cierta producción acumulada (MMb)")
     Np_count = px.histogram(x=acum, labels={'x': 'Np (MMb)'})
     Np_count
+    st.subheader('Producción de gas acumulada')
+    st.markdown("Producción acumulada por pozo (MMMpc)")
+    acumg = asig_df.groupby('Nombre_del_pozo')['Gp (MMMpc)'].sum()
+    Gp_pozos = px.histogram(x=pozos, y=acumg, labels={
+        'x': 'Pozos', 'y': 'Gp (MMMpc)'})
+    Gp_pozos
+    st.markdown(
+        "Cantidad de pozos que han alcanzado cierta producción acumulada (MMMpc)")
+    Gp_count = px.histogram(x=acumg, labels={'x': 'Gp (MMMpc)'})
+    Gp_count
