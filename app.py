@@ -33,24 +33,24 @@ if anal:
     acum = asig_df.groupby('Nombre_del_pozo')['Np (MMb)'].sum()
     pozos = asig_df['Nombre_del_pozo'].unique()
     Np_pozos = px.histogram(x=pozos, y=acum, labels={
-        'x': 'Pozos', 'y': 'Np (MMb)'}, color_discrete_map={'Np (MMb)': '#014135'})
+        'x': 'Pozos', 'y': 'Np (MMb)'}, color_discrete_sequence=['darkOliveGreen'])
     Np_pozos
     st.markdown(
-        "Cantidad de pozos (eje vertical) vs Producción acumulada (MMb)")
-    Np_count = px.histogram(x=acum, labels={'x': 'Np (MMb)'}, color_discrete_map={
-                            'Np (MMb)': '#014135'})
+        "Cantidad de pozos (eje vertical) en cada rango de producción acumulada (MMb)")
+    Np_count = px.histogram(
+        x=acum, labels={'x': 'Np (MMb)'}, color_discrete_sequence=['darkOliveGreen'], nbins=10)
     Np_count
     st.divider()
     st.subheader('Producción de gas acumulada')
     st.markdown("Producción acumulada por pozo (MMMpc)")
     acumg = asig_df.groupby('Nombre_del_pozo')['Gp (MMMpc)'].sum()
     Gp_pozos = px.histogram(x=pozos, y=acumg, labels={
-        'x': 'Pozos', 'y': 'Gp (MMMpc)'}, color_discrete_map={'Gp (MMMpc)': '#BC8F8F'})
+        'x': 'Pozos', 'y': 'Gp (MMMpc)'}, color_discrete_sequence=['firebrick'])
     Gp_pozos
     st.markdown(
-        "Cantidad de pozos (eje vertical) vs Producción acumulada (MMMpc)")
-    Gp_count = px.histogram(x=acumg, labels={'x': 'Gp (MMMpc)'}, color_discrete_map={
-                            'Gp (MMMpc)': '#BC8F8F'})
+        "Cantidad de pozos (eje vertical) en cada rango de producción acumulada (MMMpc)")
+    Gp_count = px.histogram(
+        x=acumg, labels={'x': 'Gp (MMMpc)'}, color_discrete_sequence=['firebrick'], nbins=10)
     Gp_count
     st.divider()
     st.markdown("Producción de agua por pozo (%)")
