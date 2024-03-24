@@ -16,9 +16,9 @@ asig_df = prod[prod['Asignación_o_Contrato'] == asig]
 col1, col2 = st.columns(2)
 with col1:
     anal_p = st.checkbox('Realizar análisis de producción por pozo')
-    if anal_p:
-        pozo = st.selectbox('Seleccionar pozo a analizar',
-                            asig_df['Nombre_del_pozo'].unique())
+    # if anal_p:
+    # pozo = st.selectbox('Seleccionar pozo a analizar',
+    #                   asig_df['Nombre_del_pozo'].unique())
 with col2:
     anal = st.button('Analizar')
 st.divider()
@@ -48,12 +48,13 @@ if anal:
     st.divider()
     if anal_p:
         st.subheader('Análisis de producción por pozo')
+        pozo = st.selectbox('Seleccionar pozo a analizar',
+                            asig_df['Nombre_del_pozo'].unique())
         st.write(f"Se ha seleccionado el pozo {pozo}")
-        pozo_df = asig_df[asig_df['Nombre_del_pozo'] == pozo]
-        st.markdown(f"Comportamiento de producción de hidrocarburos")
-        compp = px.line(pozo_df, x='Fecha', y=[
-                        'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'])
-        compp
-        pozo_df['Fecha'] = pd.to_datetime(pozo_df['Fecha'], format='%Y-%m-%d')
-        compa = px.scatter(pozo_df, x='Fecha', y='Fw (%)', trendline='lowess')
-        compa
+        pozoa = st.button('Analizar pozo')
+        if pozoa:
+            pozo_df = asig_df[asig_df['Nombre_del_pozo'] == pozo]
+            st.markdown(f"Comportamiento de producción del pozo {pozo}")
+            compp = px.line(pozo_df, x='Fecha', y=[
+                            'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'])
+            compp
