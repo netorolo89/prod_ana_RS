@@ -45,14 +45,13 @@ if anal:
     st.divider()
     if anal_p:
         st.subheader('Análisis de producción por pozo')
-        pozo = st.selectbox('Seleccionar pozo a analizar', pozos)
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(f"Se ha seleccionado el pozo {pozo}")
-        with col2:
-            pozoa = st.button('Analizar pozo')
-        # if pozo:
-        # st.markdown(f"Comportamiento de producción del pozo {pozo}")
-        # compp = px.line(asig_df.query("Nombre_del_pozo==pozo"), x='Fecha', y=[
-        #    'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'])
-        # compp
+        pozo = st.radio('Seleccionar pozo a analizar',
+                        asig_df['Nombre_del_pozo'].unique())
+        st.write(f"Se ha seleccionado el pozo {pozo}")
+        pozoa = st.button('Analizar pozo')
+        if pozoa:
+            pozo_df = asig_df[asig_df['Nombre_del_pozo'] == pozo]
+            st.markdown(f"Comportamiento de producción del pozo {pozo}")
+            compp = px.line(pozo_df, x='Fecha', y=[
+                'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'])
+            compp
