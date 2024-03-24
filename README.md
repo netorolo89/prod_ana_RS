@@ -6,3 +6,6 @@ asignaciones de las Cuencas del Sureste. Se puede observar lo que ha hecho cada 
 de la asignación y , también muy importante en la industria, el comportamiento de la producción de agua. La posibilidad de ver el comportamiento
 de los hidrocarburos por pozo le brinda a esta aplicación aún mas relevancia, ya que entre el mundo de pozos existentes, un rápido 
 acceso a la información, es siempre importante.
+
+El análisis exploratorio de datos, nos ayudó a modificar el set de datos original. Por lo tanto, existen dos set en el repositorio:
+el original, en el directorio principal, y el que trabaja la aplicación, en el directorio de notebooks.
