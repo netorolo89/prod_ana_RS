@@ -34,30 +34,30 @@ if anal:
     pozos = asig_df['Nombre_del_pozo'].unique()
     Np_pozos = px.histogram(x=pozos, y=acum, labels={
         'x': 'Pozos', 'y': 'Np (MMb)'}, color_discrete_sequence=['darkOliveGreen'])
-    Np_pozos
+    st.plotly_chart(Np_pozos, use_container_width=True)
     st.markdown(
         "Cantidad de pozos (eje vertical) en cada rango de producción acumulada (MMb)")
     Np_count = px.histogram(
         x=acum, labels={'x': 'Np (MMb)'}, color_discrete_sequence=['darkOliveGreen'], nbins=10)
-    Np_count
+    st.plotly_chart(Np_count, use_container_width=True)
     st.divider()
     st.subheader('Producción de gas acumulada')
     st.markdown("Producción acumulada por pozo (MMMpc)")
     acumg = asig_df.groupby('Nombre_del_pozo')['Gp (MMMpc)'].sum()
     Gp_pozos = px.histogram(x=pozos, y=acumg, labels={
         'x': 'Pozos', 'y': 'Gp (MMMpc)'}, color_discrete_sequence=['firebrick'])
-    Gp_pozos
+    st.plotly_chart(Gp_pozos, use_container_width=True)
     st.markdown(
         "Cantidad de pozos (eje vertical) en cada rango de producción acumulada (MMMpc)")
     Gp_count = px.histogram(
         x=acumg, labels={'x': 'Gp (MMMpc)'}, color_discrete_sequence=['firebrick'], nbins=10)
-    Gp_count
+    st.plotly_chart(Gp_count, use_container_width=True)
     st.divider()
     st.markdown("Producción de agua por pozo (%)")
     asig_df['Fecha'] = pd.to_datetime(asig_df['Fecha'], format='%Y-%m-%d')
     Fw_p = px.scatter(asig_df, x='Fecha', y='Fw (%)', color='Nombre_del_pozo',
                       color_discrete_sequence=px.colors.sequential.Emrld, labels={'Nombre_del_pozo': 'Pozos'})
-    Fw_p
+    st.plotly_chart(Fw_p, use_container_width=True)
     st.markdown(
         'Dando click en los nombres de los pozos (lado derecho) se pueden quitar o agregar al gráfico.')
     st.divider()
@@ -68,9 +68,9 @@ if anal:
         st.markdown("Comportamiento de producción de hidrocarburos")
         compp = px.line(pozo_df, x='Fecha', y=[
                         'Petróleo_(Mbd)', 'Gas_asociado_(MMpcd)'], color_discrete_map={'Petróleo_(Mbd)': '#014135', 'Gas_asociado_(MMpcd)': '#BC8F8F'}, labels={'value': 'Promedio diario mensual', 'variable': 'Hidrocarburo'})
-        compp
+        st.plotly_chart(compp, use_container_width=True)
         st.markdown("Comportamiento de producción de agua")
         pozo_df['Fecha'] = pd.to_datetime(pozo_df['Fecha'], format='%Y-%m-%d')
         compa = px.scatter(pozo_df, x='Fecha', y='Fw (%)').update_traces(
             marker=dict(color='turquoise'))
-        compa
+        st.plotly_chart(compa, use_container_width=True)
