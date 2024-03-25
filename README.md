@@ -9,3 +9,6 @@ acceso a la información, es siempre importante.
 
 El análisis exploratorio de datos, nos ayudó a modificar el set de datos original. Por lo tanto, existen dos set en el repositorio:
 el original, en el directorio principal, y el que trabaja la aplicación, en el directorio de notebooks.
+
+Liga de aplicación:
+https://seguimiento-produccion.onrender.com
