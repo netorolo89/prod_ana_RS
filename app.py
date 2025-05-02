@@ -2,8 +2,16 @@ import streamlit as st
 import pandas as pd
 import plotly_express as px
 import calendar
-prod = pd.read_csv(
-    'notebooks/Prod_Asig_Worked.csv')
+prod = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_01.xlsx')
+prod_2 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_02.xlsx')
+prod_3 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_03.xlsx')
+prod=prod.drop('Unnamed: 0',axis=1)
+prod_2=prod_2.drop('Unnamed: 0',axis=1)
+prod_3=prod_3.drop('Unnamed: 0',axis=1)
+prod_asig=pd.concat([prod,prod_2,prod_3])
+asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
+
+'''
 st.title('Seguimiento a la Producción')
 st.header('Comportamiento de la producción de Hidrocarburos (2016-2024)')
 st.subheader('En esta aplicación se puede visualizar el comportamiento de la producción de aceite, gas, y agua de las asignaciones pertenecientes a las cuencas del sureste.')
@@ -74,3 +82,4 @@ if anal:
         compa = px.scatter(pozo_df, x='Fecha', y='Fw (%)').update_traces(
             marker=dict(color='turquoise'))
         st.plotly_chart(compa, use_container_width=True)
+'''
