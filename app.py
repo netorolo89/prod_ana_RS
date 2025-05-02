@@ -2,14 +2,31 @@ import streamlit as st
 import pandas as pd
 import plotly_express as px
 import calendar
-prod = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_01.xlsx')
-prod_2 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_02.xlsx')
+#prod = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_01.xlsx')
+#prod_2 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_02.xlsx')
 prod_3 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_03.xlsx')
-prod=prod.drop('Unnamed: 0',axis=1)
-prod_2=prod_2.drop('Unnamed: 0',axis=1)
+#prod=prod.drop('Unnamed: 0',axis=1)
+#prod_2=prod_2.drop('Unnamed: 0',axis=1)
 prod_3=prod_3.drop('Unnamed: 0',axis=1)
-prod_asig=pd.concat([prod,prod_2,prod_3])
-asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
+#prod_asig=pd.concat([prod,prod_2,prod_3])
+#asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
+asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
+asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
+
+if asig_df['Petróleo_(Mbd)'].sum()>0:
+    acep=px.line(asig_df,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
+                 color_discrete_sequence=px.colors.qualitative.Antique)
+if asig_df['Condensado_(Mbd)'].sum()>0:
+    acep=px.line(asig_df,x='Fecha',y='Condensado_(Mbd)',title=f"Producción de condensado de la Asignación {asig}",
+                 color_discrete_sequence=px.colors.qualitative.Antique)
+gasp=px.line(asig_df,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la Asignación {asig}",
+             color_discrete_sequence=px.colors.qualitative.Antique)
+agup=px.scatter(asig_df,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
+                color_continuous_scale='Emerald')
+
+
+
+
 
 '''
 st.title('Seguimiento a la Producción')
