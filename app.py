@@ -12,16 +12,16 @@ prod_3=prod_3.drop('Unnamed: 0',axis=1)
 #asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
 asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
 asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
-
-if asig_df['Petróleo_(Mbd)'].sum()>0:
-    acep=px.line(asig_df,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
+asig_tot=asig_df.groupby(['Fecha','Asignación_o_Contrato'])[['Petróleo_(Mbd)','Condensado_(Mbd)','Gas_(MMpcd)','Fw (%)']].sum()
+if asig_tot['Petróleo_(Mbd)'].sum()>0:
+    acep=px.line(asig_tot,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
                  color_discrete_sequence=px.colors.qualitative.Antique)
-if asig_df['Condensado_(Mbd)'].sum()>0:
-    acep=px.line(asig_df,x='Fecha',y='Condensado_(Mbd)',title=f"Producción de condensado de la Asignación {asig}",
+if asig_tot['Condensado_(Mbd)'].sum()>0:
+    acep=px.line(asig_tot,x='Fecha',y='Condensado_(Mbd)',title=f"Producción de condensado de la Asignación {asig}",
                  color_discrete_sequence=px.colors.qualitative.Antique)
-gasp=px.line(asig_df,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la Asignación {asig}",
+gasp=px.line(asig_tot,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la Asignación {asig}",
              color_discrete_sequence=px.colors.qualitative.Antique)
-agup=px.scatter(asig_df,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
+agup=px.scatter(asig_tot,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
                 color_continuous_scale='Emerald')
 st.plotly_chart(acep)
 st.plotly_chart(gasp,use_container_width=True)
