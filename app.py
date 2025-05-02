@@ -23,9 +23,9 @@ gasp=px.line(asig_df,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la 
              color_discrete_sequence=px.colors.qualitative.Antique)
 agup=px.scatter(asig_df,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
                 color_continuous_scale='Emerald')
-
-
-
+st.plotly_chart(acep)
+st.plotly_chart(gasp,use_container_width=True)
+st.plotly_chart(agup)
 
 
 '''
