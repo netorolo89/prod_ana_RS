@@ -13,6 +13,7 @@ prod_3=prod_3.drop('Unnamed: 0',axis=1)
 asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
 asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
 asig_tot=asig_df.groupby(['Fecha','Asignación_o_Contrato'])[['Petróleo_(Mbd)','Condensado_(Mbd)','Gas_(MMpcd)','Fw (%)']].sum()
+asig_tot=asig_tot.reset_index()
 if asig_tot['Petróleo_(Mbd)'].sum()>0:
     acep=px.line(asig_tot,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
                  color_discrete_sequence=px.colors.qualitative.Antique)
