@@ -28,6 +28,7 @@ st.plotly_chart(acep)
 st.plotly_chart(gasp,use_container_width=True)
 st.plotly_chart(agup)
 #Podemos intentar hacerla más rápida si primero seleccionamos la asignación, luego creamos el df únicamente con esos datos.
+#Revisar cálculos de agua Fw
 
 '''
 st.title('Seguimiento a la Producción')
