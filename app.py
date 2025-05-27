@@ -73,7 +73,7 @@ prod_3 = pd.read_excel('Actualización Comportamiento Producción/prod_asignacio
 prod_3=prod_3.drop('Unnamed: 0',axis=1)
 #prod_asig=pd.concat([prod,prod_2,prod_3])
 #asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
-asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
+#asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
 asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
 asig_tot=asig_df.groupby(['Fecha','Asignación_o_Contrato'])[['Petróleo_(Mbd)','Condensado_(Mbd)','Gas_(MMpcd)','Fw (%)']].sum()
 asig_tot=asig_tot.reset_index()
