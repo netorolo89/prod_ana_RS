@@ -65,31 +65,34 @@ asignaciones=['AR-0506-M - CAMPO ROSAL', 'AR-0496 - CAMPO RUSCO','A-0296-2M - CA
               'CNH-R02-L03-BG-02/2017','AE-0136-M - CUICHAPA', 'A-0327-M - CAMPO TEKEL','AE-0141-3M - COMALCALCO', 'AE-0182-M - WAYA', 'AE-0130-M - LLAVE','AE-0166-M - CAMPECHE ORIENTE', 'AE-0153-M - UCHUKIL',
               'AE-0149-M - UCHUKIL', 'AE-0147-M - COMALCALCO','AE-0146-M - COMALCALCO', 'AE-0138-2M - CUICHAPA']
 asig=st.selectbox('Seleccionar Asignación o Contrato',asignaciones)
-#prod = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_01.xlsx')
-#prod_2 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_02.xlsx')
-prod_3 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_03.xlsx')
-#prod=prod.drop('Unnamed: 0',axis=1)
-#prod_2=prod_2.drop('Unnamed: 0',axis=1)
-prod_3=prod_3.drop('Unnamed: 0',axis=1)
-#prod_asig=pd.concat([prod,prod_2,prod_3])
-#asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
-#asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
-asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
-asig_tot=asig_df.groupby(['Fecha','Asignación_o_Contrato'])[['Petróleo_(Mbd)','Condensado_(Mbd)','Gas_(MMpcd)','Fw (%)']].sum()
-asig_tot=asig_tot.reset_index()
-if asig_tot['Petróleo_(Mbd)'].sum()>0:
-    acep=px.line(asig_tot,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
-                 color_discrete_sequence=px.colors.qualitative.Antique)
-if asig_tot['Condensado_(Mbd)'].sum()>0:
-    acep=px.line(asig_tot,x='Fecha',y='Condensado_(Mbd)',title=f"Producción de condensado de la Asignación {asig}",
-                 color_discrete_sequence=px.colors.qualitative.Antique)
-gasp=px.line(asig_tot,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la Asignación {asig}",
-             color_discrete_sequence=px.colors.qualitative.Antique)
-agup=px.scatter(asig_tot,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
-                color_continuous_scale='Emerald')
-st.plotly_chart(acep)
-st.plotly_chart(gasp,use_container_width=True)
-st.plotly_chart(agup)
+
+plot=st.button('Graficar Producción Histórica')
+if  plot:
+  #prod = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_01.xlsx')
+  #prod_2 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_02.xlsx')
+  prod_3 = pd.read_excel('Actualización Comportamiento Producción/prod_asignaciones_0125_03.xlsx')
+  #prod=prod.drop('Unnamed: 0',axis=1)
+  #prod_2=prod_2.drop('Unnamed: 0',axis=1)
+  prod_3=prod_3.drop('Unnamed: 0',axis=1)
+  #prod_asig=pd.concat([prod,prod_2,prod_3])
+  #asig=st.selectbox('Seleccionar Asignación o Contrato',prod_asig['Asignación_o_Contrato'].unique())
+  #asig=st.selectbox('Seleccionar Asignación o Contrato',prod_3['Asignación_o_Contrato'].unique())
+  asig_df=prod_3[prod_3['Asignación_o_Contrato']==asig]
+  asig_tot=asig_df.groupby(['Fecha','Asignación_o_Contrato'])[['Petróleo_(Mbd)','Condensado_(Mbd)','Gas_(MMpcd)','Fw (%)']].sum()
+  asig_tot=asig_tot.reset_index()
+  if asig_tot['Petróleo_(Mbd)'].sum()>0:
+      acep=px.line(asig_tot,x='Fecha',y='Petróleo_(Mbd)',title=f"Producción de aceite de la Asignación {asig}",
+                   color_discrete_sequence=px.colors.qualitative.Antique)
+  if asig_tot['Condensado_(Mbd)'].sum()>0:
+      acep=px.line(asig_tot,x='Fecha',y='Condensado_(Mbd)',title=f"Producción de condensado de la Asignación {asig}",
+                   color_discrete_sequence=px.colors.qualitative.Antique)
+  gasp=px.line(asig_tot,x='Fecha',y='Gas_(MMpcd)',title=f"Producción de gas de la Asignación {asig}",
+               color_discrete_sequence=px.colors.qualitative.Antique)
+  agup=px.scatter(asig_tot,x='Fecha',y='Fw (%)',title=f"Producción de agua de la Asignación {asig}",
+                  color_continuous_scale='Emerald')
+  st.plotly_chart(acep)
+  st.plotly_chart(gasp,use_container_width=True)
+  st.plotly_chart(agup)
 #Podemos intentar hacerla más rápida si primero seleccionamos la asignación, luego creamos el df únicamente con esos datos.
 #Revisar cálculos de agua Fw
 
